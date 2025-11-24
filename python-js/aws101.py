@@ -4,19 +4,16 @@ import os
 
 load_dotenv()
 
-access_key = os.getenv("AWS_ACCESS_KEY_ID")
-secret_key = os.getenv("AWS_SECRET_ACCESS_KEY")
-region = os.getenv("AWS_REGION")
+session = boto3.Session(
+    aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID"),
+    aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY"),
+    region_name = os.getenv("AWS_REGION")
+)
 
 
 """ 
 ## resource mode
-ec2 = boto3.resource(
-    "ec2",
-    aws_access_key_id=access_key,
-    aws_secret_access_key=secret_key,
-    region_name=region
-)
+ec2 = session.resource("ec2")
 
 instances_list = ec2.instances.all()
 
@@ -29,12 +26,8 @@ for inst in instances_list:
 
 
 ## client mode, more detailed
-ec2_serv = boto3.client( 
-    "ec2",
-    aws_access_key_id=access_key,
-    aws_secret_access_key=secret_key,
-    region_name=region
-)
+ec2_serv = session.client("ec2")
+
 desc_instances = ec2_serv.describe_instances() 
 
 for reserv in desc_instances["Reservations"]:
