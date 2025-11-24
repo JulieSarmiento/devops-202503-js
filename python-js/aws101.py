@@ -20,7 +20,7 @@ instances_list = ec2.instances.all()
 for inst in instances_list:
     id = inst.id
     state = inst.state['Name']
-    print("instance:", id , f"is in state: {state}") 
+    print(f"instance: {id}, is in state: {state}") 
 """
 
 
@@ -34,6 +34,6 @@ for reserv in desc_instances["Reservations"]:
     for inst in reserv["Instances"]:
         id = inst["InstanceId"]
         state = inst["State"]["Name"]
-        print("instance:", id , f"is in state: {state}")
+        print(f"instance: {id}, is in state: {state}")
 ## in this mode we can extract more details about the instances
 ## like tags.
